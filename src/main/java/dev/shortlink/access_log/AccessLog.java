@@ -24,7 +24,7 @@ public class AccessLog {
     private Link link;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "access_time", nullable = false, updatable = false)
+    @Column(name = "access_time", nullable = false)
     private Date accessTime;
 
     private String ipAddress;

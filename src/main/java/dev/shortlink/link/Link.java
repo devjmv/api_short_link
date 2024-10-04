@@ -43,10 +43,10 @@ public class Link {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "access_log", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "link")
     private List<AccessLog> accessLogs;
 
-    @OneToOne(mappedBy = "link", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "link")
     private LinkStatus linkStatus;
     
     @PrePersist
