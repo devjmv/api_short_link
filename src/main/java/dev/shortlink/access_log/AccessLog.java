@@ -1,4 +1,4 @@
-package dev.shortlink.accessLog;
+package dev.shortlink.access_log;
 
 import dev.shortlink.link.Link;
 

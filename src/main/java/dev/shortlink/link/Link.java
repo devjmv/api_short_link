@@ -5,7 +5,8 @@ import lombok.*;
 import java.util.Date;
 import java.util.List;
 
-import dev.shortlink.accessLog.AccessLog;
+import dev.shortlink.access_log.AccessLog;
+import dev.shortlink.link_status.LinkStatus;
 import dev.shortlink.user.User;
 
 @Entity
@@ -44,6 +45,9 @@ public class Link {
 
     @OneToMany(mappedBy = "access_log", cascade = CascadeType.ALL)
     private List<AccessLog> accessLogs;
+
+    @OneToOne(mappedBy = "link", cascade = CascadeType.ALL)
+    private LinkStatus linkStatus;
     
     @PrePersist
     protected void onCreate() {
