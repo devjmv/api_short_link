@@ -1,7 +1,6 @@
 package dev.shortlink.link_status;
 
 import dev.shortlink.link.Link;
-import dev.shortlink.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
