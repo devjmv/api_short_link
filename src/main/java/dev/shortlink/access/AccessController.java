@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccessController {
     
     @GetMapping("/{id}")
-    public void getCategoryById(@PathVariable String id) {
-        
+    public String getCategoryById(@PathVariable String id) {
+        return "access " + id;
     }
 }
