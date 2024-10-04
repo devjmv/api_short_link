@@ -2,7 +2,6 @@ package dev.shortlink.link_status;
 
 public class LinkStatusMapper {
 
-    // Método para convertir LinkStatus a LinkStatusDTO
     public static LinkStatusDTO toDTO(LinkStatus linkStatus) {
         if (linkStatus == null) {
             return null;
@@ -15,6 +14,7 @@ public class LinkStatusMapper {
                 .statusUpdatedAt(linkStatus.getStatusUpdatedAt())
                 .build();
     }
+    
     public static LinkStatus toEntity(LinkStatusDTO dto) {
         if (dto == null) {
             return null;
