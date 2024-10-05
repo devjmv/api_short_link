@@ -1,5 +1,8 @@
 package dev.shortlink.access_log;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class AccessLogMapper {
 
     // Method to convert AccessLog to AccessLogDTO

@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class LinkStatusDTO {
     private Long id;
-    private String status;
+    private Status status;
     private String reason;
     private Date statusUpdatedAt;
 }

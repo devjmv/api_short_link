@@ -24,7 +24,7 @@ public class AccessController {
 
     @GetMapping("/{id}")
     public void redirectLink(@PathVariable String shortUrl, HttpServletResponse response) throws IOException {
-        Optional<Link> linkOptional = linkRepository.findByShortUrl(Long.valueOf(shortUrl));
+        Optional<Link> linkOptional = linkRepository.findByShortUrl(shortUrl);
 
         if (linkOptional.isPresent()) {
             Link link = linkOptional.get();

@@ -1,11 +1,18 @@
 package dev.shortlink.link;
 
-import dev.shortlink.link_status.LinkStatusMapper;
-import dev.shortlink.link_status.LinkStatusDTO;
+import org.springframework.stereotype.Component;
+import dev.shortlink.user.UserRepository;
 
+@Component
 public class LinkMapper {
 
-    public static LinkDTO toDTO(Link link) {
+    private final UserRepository userRepository;
+
+    public LinkMapper(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public LinkDTO toDTO(Link link) {
         if (link == null) {
             return null;
         }
@@ -17,23 +24,21 @@ public class LinkMapper {
                 .clicks(link.getClicks())
                 .expirationDate(link.getExpirationDate())
                 .userId(link.getUser() != null ? link.getUser().getId() : null)
-                .linkStatus(LinkStatusMapper.toDTO(link.getLinkStatus()))
                 .build();
     }
 
-    public static Link toEntity(LinkDTO dto) {
+    public Link toEntity(LinkDTO dto) {
         if (dto == null) {
             return null;
         }
 
-        Link link = Link.builder()
+        return Link.builder()
                 .id(dto.getId())
                 .originUrl(dto.getOriginUrl())
                 .shortUrl(dto.getShortUrl())
                 .clicks(dto.getClicks())
                 .expirationDate(dto.getExpirationDate())
-                //.link.setUser(userRepository.findById(dto.getUserId()).orElse(null));
+                .user(userRepository.findById(dto.getUserId()).orElse(null))
                 .build();
-        return link;
     }
 }

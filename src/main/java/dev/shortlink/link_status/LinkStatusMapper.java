@@ -1,5 +1,8 @@
 package dev.shortlink.link_status;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class LinkStatusMapper {
 
     public static LinkStatusDTO toDTO(LinkStatus linkStatus) {

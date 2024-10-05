@@ -18,7 +18,9 @@ public class LinkStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     private String reason;
 
     @Temporal(TemporalType.TIMESTAMP)
