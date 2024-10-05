@@ -29,5 +29,10 @@ public class AccessLog {
 
     private String ipAddress;
     private String userAgent;
-    private String referrer;
+    private String referer;
+
+    @PrePersist
+    protected void onCreate() {
+        this.accessTime = new Date();
+    }
 }

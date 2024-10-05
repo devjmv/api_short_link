@@ -17,5 +17,5 @@ public class AccessLogDTO {
     private Date accessTime;
     private String ipAddress;
     private String userAgent;
-    private String referrer;
+    private String referer;
 }

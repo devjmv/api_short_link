@@ -17,7 +17,7 @@ public class AccessLogMapper {
                 .accessTime(accessLog.getAccessTime())
                 .ipAddress(accessLog.getIpAddress())
                 .userAgent(accessLog.getUserAgent())
-                .referrer(accessLog.getReferrer())
+                .referer(accessLog.getReferer())
                 .build();
     }
 
@@ -32,7 +32,7 @@ public class AccessLogMapper {
         accessLog.setAccessTime(dto.getAccessTime());
         accessLog.setIpAddress(dto.getIpAddress());
         accessLog.setUserAgent(dto.getUserAgent());
-        accessLog.setReferrer(dto.getReferrer());
+        accessLog.setReferer(dto.getReferer());
         
         // You can set the link from the DTO if you have a Link object available
         // accessLog.setLink(new Link(dto.getLinkId()));
