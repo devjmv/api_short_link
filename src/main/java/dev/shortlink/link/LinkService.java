@@ -54,7 +54,6 @@ public class LinkService {
         Link link = new Link();
         link.setOriginUrl(originUrl);
         link.setShortUrl(shortUrl != null ? shortUrl : randomShortUrl);
-        link.setClicks(0);
         link.setExpirationDate(null);
         link.setUser(user);
         Link savedLink = linkRepository.save(link);
@@ -68,4 +67,30 @@ public class LinkService {
         return linkMapper.toDTO(savedLink);
     }
 
+    public LinkDTO updatedLink(User user, LinkDTO linkDTO) {
+
+        Link link = linkRepository.findById(linkDTO.getId()).get();
+
+        if (link == null) {
+            throw new LinkException("Link not exists");
+        }
+
+        if (null != linkDTO.getOriginUrl()
+                && linkRepository.existsByOriginUrlAndNotId(linkDTO.getOriginUrl(), linkDTO.getId())) {
+            throw new LinkException("Email already in use");
+        }
+
+        if (null != linkDTO.getShortUrl() && linkRepository.existsByShortUrlAndNotId(linkDTO.getShortUrl(), linkDTO.getId())) {
+            throw new LinkException("Short link already in use");
+        }
+
+        link.setOriginUrl(null != linkDTO.getOriginUrl() ? linkDTO.getOriginUrl() : link.getOriginUrl());
+        link.setShortUrl(null != linkDTO.getShortUrl() ? linkDTO.getShortUrl() : link.getShortUrl());
+        link.setExpirationDate(
+                null != linkDTO.getExpirationDate() ? linkDTO.getExpirationDate() : link.getExpirationDate());
+
+        LinkDTO updatedLink = linkMapper.toDTO(linkRepository.save(link));
+
+        return updatedLink;
+    }
 }

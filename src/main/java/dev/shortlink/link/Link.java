@@ -29,8 +29,6 @@ public class Link {
     @Column(name = "short_url", nullable = false)
     private String shortUrl;
 
-    private int clicks;
-
     @Column(name = "expiration_date")
     private String expirationDate;
 
@@ -52,6 +50,5 @@ public class Link {
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();
-        this.clicks = 0;
     }
 }

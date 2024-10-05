@@ -9,7 +9,7 @@ public enum Status {
 
     ACTIVE("ACTIVE"),
     INACTIVE("INACTIVE"),
-    END_DATE("END_DATE");
+    TEST("TEST");
 
     private final String value;
 }

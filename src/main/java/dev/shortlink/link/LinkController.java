@@ -36,21 +36,18 @@ public class LinkController {
     }
 
     @PostMapping
-    public ResponseEntity<LinkDTO> addLink(Principal connectedUser, @Valid @RequestHeader(required = false) String originUrl,
+    public ResponseEntity<LinkDTO> addLink(Principal connectedUser,
+            @Valid @RequestHeader(required = false) String originUrl,
             @RequestHeader(required = false) String shortUrl) {
-            User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-            LinkDTO addLink = linkService.addLink(user, originUrl, shortUrl);
-            return ResponseEntity.status(HttpStatus.CREATED).body(addLink);
+        User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        LinkDTO addLink = linkService.addLink(user, originUrl, shortUrl);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addLink);
     }
 
-    /*
-     * @PutMapping("/user")
-     * public ResponseEntity<LinkDTO> updateProfile(Principal
-     * connectedUser, @Valid @RequestHeader String originUrl) {
-     * User user = (User) ((UsernamePasswordAuthenticationToken)
-     * connectedUser).getPrincipal();
-     * LinkDTO updatedLink = linkService.updatedLink(user, originUrl);
-     * return ResponseEntity.status(HttpStatus.OK).body(updatedLink);
-     * }
-     */
+    @PutMapping
+    public ResponseEntity<LinkDTO> updateLink(Principal connectedUser, @RequestBody LinkDTO linkDTO) {
+        User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        LinkDTO updatedLink = linkService.updatedLink(user, linkDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedLink);
+    }
 }

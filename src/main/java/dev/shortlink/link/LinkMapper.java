@@ -26,7 +26,6 @@ public class LinkMapper {
                 .id(link.getId())
                 .originUrl(link.getOriginUrl())
                 .shortUrl(link.getShortUrl())
-                .clicks(link.getClicks())
                 .expirationDate(link.getExpirationDate())
                 .userId(link.getUser() != null ? link.getUser().getId() : null)
                 .status(LinkStatusMapper.toDTO(linkStatusRepository.findById(link.getId()).get()))
@@ -42,7 +41,6 @@ public class LinkMapper {
                 .id(dto.getId())
                 .originUrl(dto.getOriginUrl())
                 .shortUrl(dto.getShortUrl())
-                .clicks(dto.getClicks())
                 .expirationDate(dto.getExpirationDate())
                 .user(userRepository.findById(dto.getUserId()).orElse(null))
                 .build();
