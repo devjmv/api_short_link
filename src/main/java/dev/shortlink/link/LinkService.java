@@ -23,9 +23,6 @@ public class LinkService {
     private final LinkStatusRepository linkStatusRepository;
     private final LinkMapper linkMapper;
 
-    @Value("${app.shortlink.domain}")
-    private String shortLinkDomain;
-
     public LinkService(LinkRepository linkRepository, LinkMapper linkMapper,
             LinkStatusRepository linkStatusRepository) {
         this.linkRepository = linkRepository;
@@ -46,7 +43,7 @@ public class LinkService {
         }
 
         if (shortUrl != null)
-            if (linkRepository.existsByShortUrl(shortLinkDomain + shortUrl)) {
+            if (linkRepository.existsByShortUrl(shortUrl)) {
                 throw new LinkException("Short URL " + shortUrl + " already in use");
             }
 
@@ -56,7 +53,7 @@ public class LinkService {
 
         Link link = new Link();
         link.setOriginUrl(originUrl);
-        link.setShortUrl(shortLinkDomain + (shortUrl != null ? shortUrl : randomShortUrl));
+        link.setShortUrl(shortUrl != null ? shortUrl : randomShortUrl);
         link.setClicks(0);
         link.setExpirationDate(null);
         link.setUser(user);
