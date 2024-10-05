@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,7 +44,6 @@ public class AuthenticationService {
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
-        .id(user.getId())
         .role(user.getRole().name())
         .accessToken(jwtToken)
         .refreshToken(refreshToken)
@@ -64,7 +62,6 @@ public class AuthenticationService {
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
-        .id(user.getId())
         .role(user.getRole().name())
         .accessToken(jwtToken)
         .refreshToken(refreshToken)
@@ -112,7 +109,6 @@ public class AuthenticationService {
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken);
         var authResponse = AuthenticationResponse.builder()
-            .id(user.getId())
             .role(user.getRole().name())
             .accessToken(accessToken)
             .refreshToken(refreshToken)

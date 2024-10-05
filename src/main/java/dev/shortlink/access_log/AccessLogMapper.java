@@ -21,7 +21,6 @@ public class AccessLogMapper {
                 .build();
     }
 
-    // Method to convert AccessLogDTO to AccessLog
     public static AccessLog toEntity(AccessLogDTO dto) {
         if (dto == null) {
             return null;
@@ -33,9 +32,6 @@ public class AccessLogMapper {
         accessLog.setIpAddress(dto.getIpAddress());
         accessLog.setUserAgent(dto.getUserAgent());
         accessLog.setReferer(dto.getReferer());
-        
-        // You can set the link from the DTO if you have a Link object available
-        // accessLog.setLink(new Link(dto.getLinkId()));
 
         return accessLog;
     }
