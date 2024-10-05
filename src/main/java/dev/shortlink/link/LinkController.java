@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,10 +36,21 @@ public class LinkController {
     }
 
     @PostMapping
-    public ResponseEntity<LinkDTO> addLink(Principal connectedUser, @Valid @RequestHeader String originUrl) {
-        User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-        LinkDTO addLink = linkService.addLink(user, originUrl);
-        return ResponseEntity.status(HttpStatus.CREATED).body(addLink);
+    public ResponseEntity<LinkDTO> addLink(Principal connectedUser, @Valid @RequestHeader(required = false) String originUrl,
+            @RequestHeader(required = false) String shortUrl) {
+            User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+            LinkDTO addLink = linkService.addLink(user, originUrl, shortUrl);
+            return ResponseEntity.status(HttpStatus.CREATED).body(addLink);
     }
-}
 
+    /*
+     * @PutMapping("/user")
+     * public ResponseEntity<LinkDTO> updateProfile(Principal
+     * connectedUser, @Valid @RequestHeader String originUrl) {
+     * User user = (User) ((UsernamePasswordAuthenticationToken)
+     * connectedUser).getPrincipal();
+     * LinkDTO updatedLink = linkService.updatedLink(user, originUrl);
+     * return ResponseEntity.status(HttpStatus.OK).body(updatedLink);
+     * }
+     */
+}

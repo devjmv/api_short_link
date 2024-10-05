@@ -15,6 +15,8 @@ public interface LinkRepository extends JpaRepository<Link, Long> {
 
     boolean existsByOriginUrl(String originUrl);
 
+    boolean existsByShortUrl(String shortUrl);
+
     List<Link> findByUser(User user);
 
 }
