@@ -1,5 +1,8 @@
 package dev.shortlink.link;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,10 +19,18 @@ public class LinkService {
     private final LinkStatusRepository linkStatusRepository;
     private final LinkMapper linkMapper;
 
-    public LinkService(LinkRepository linkRepository, LinkMapper linkMapper, LinkStatusRepository linkStatusRepository) {
+    public LinkService(LinkRepository linkRepository, LinkMapper linkMapper,
+            LinkStatusRepository linkStatusRepository) {
         this.linkRepository = linkRepository;
         this.linkMapper = linkMapper;
         this.linkStatusRepository = linkStatusRepository;
+    }
+
+    public List<LinkDTO> findAllByUser(User user) {
+        List<Link> links = linkRepository.findByUser(user);
+        return links.stream()
+                .map(linkMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     public LinkDTO addLink(User user, String originUrl) {

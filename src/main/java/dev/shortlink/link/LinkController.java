@@ -1,8 +1,11 @@
 package dev.shortlink.link;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,13 @@ public class LinkController {
 
     public LinkController(LinkService linkService) {
         this.linkService = linkService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<LinkDTO>> getAllLinks(Principal connectedUser) {
+        User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        List<LinkDTO> linkDTO = linkService.findAllByUser(user);
+        return ResponseEntity.ok(linkDTO);
     }
 
     @PostMapping
