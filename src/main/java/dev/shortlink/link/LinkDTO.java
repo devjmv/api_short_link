@@ -14,7 +14,6 @@ public class LinkDTO {
     private Long id;
     private String originUrl;
     private String shortUrl;
-    private int clicks;
     private String expirationDate;
     private Long userId;
     private LinkStatusDTO status;
