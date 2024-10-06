@@ -33,7 +33,7 @@ public class LinkController {
     public ResponseEntity<Page<LinkDTO>> getAllLinks(Principal connectedUser,
             @PageableDefault(size = 8, sort = { "createdAt" }) Pageable pageable) {
         User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-        Page<LinkDTO> linkDTO = linkService.findAllByUser(user, pageable);
+        Page<LinkDTO> linkDTO = linkService.findAllLinksByUser(user, pageable);
         return ResponseEntity.ok(linkDTO);
     }
 
