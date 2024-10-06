@@ -1,7 +1,8 @@
 package dev.shortlink.link;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,9 +30,10 @@ public class LinkController {
     }
 
     @GetMapping
-    public ResponseEntity<List<LinkDTO>> getAllLinks(Principal connectedUser) {
+    public ResponseEntity<Page<LinkDTO>> getAllLinks(Principal connectedUser,
+            @PageableDefault(size = 8, sort = { "createdAt" }) Pageable pageable) {
         User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-        List<LinkDTO> linkDTO = linkService.findAllByUser(user);
+        Page<LinkDTO> linkDTO = linkService.findAllByUser(user, pageable);
         return ResponseEntity.ok(linkDTO);
     }
 

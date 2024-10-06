@@ -1,8 +1,9 @@
 package dev.shortlink.link;
 
 import java.util.Optional;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +20,7 @@ public interface LinkRepository extends JpaRepository<Link, Long> {
 
     boolean existsByShortUrl(String shortUrl);
 
-    List<Link> findByUser(User user);
+    Page<Link> findByUser(User user, Pageable pageable);
 
     @Query("SELECT COUNT(l) > 0 FROM Link l WHERE l.originUrl = :originUrl AND l.id != :linkId")
     boolean existsByOriginUrlAndNotId(@Param("originUrl") String originUrl, @Param("linkId") Long linkId);

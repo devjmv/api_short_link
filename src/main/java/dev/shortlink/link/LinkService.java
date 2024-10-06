@@ -1,10 +1,11 @@
 package dev.shortlink.link;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import java.security.SecureRandom;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,11 +30,9 @@ public class LinkService {
         this.linkStatusRepository = linkStatusRepository;
     }
 
-    public List<LinkDTO> findAllByUser(User user) {
-        List<Link> links = linkRepository.findByUser(user);
-        return links.stream()
-                .map(linkMapper::toDTO)
-                .collect(Collectors.toList());
+    public Page<LinkDTO> findAllLinksByUser(User user, Pageable pageable) {
+        return linkRepository.findByUser(user, pageable)
+                .map(linkMapper::toDTO);
     }
 
     public LinkDTO addLink(User user, String originUrl, String shortUrl) {
@@ -79,7 +78,8 @@ public class LinkService {
             throw new LinkException("Email already in use");
         }
 
-        if (null != linkDTO.getShortUrl() && linkRepository.existsByShortUrlAndNotId(linkDTO.getShortUrl(), linkDTO.getId())) {
+        if (null != linkDTO.getShortUrl()
+                && linkRepository.existsByShortUrlAndNotId(linkDTO.getShortUrl(), linkDTO.getId())) {
             throw new LinkException("Short link already in use");
         }
 
