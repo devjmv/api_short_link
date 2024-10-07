@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.Date;
 
 @Data
 @Builder
@@ -14,7 +15,7 @@ public class LinkDTO {
     private Long id;
     private String originUrl;
     private String shortUrl;
-    private String expirationDate;
+    private Date expirationDate;
     private Long userId;
     private LinkStatusDTO status;
 }

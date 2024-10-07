@@ -1,5 +1,6 @@
 package dev.shortlink.link;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import dev.shortlink.link_status.LinkStatusMapper;
@@ -9,6 +10,8 @@ import dev.shortlink.user.UserRepository;
 @Component
 public class LinkMapper {
 
+    @Autowired
+    private LinkStatusMapper linkStatusMapper;
     private final UserRepository userRepository;
     private final LinkStatusRepository linkStatusRepository;
 
@@ -28,7 +31,7 @@ public class LinkMapper {
                 .shortUrl(link.getShortUrl())
                 .expirationDate(link.getExpirationDate())
                 .userId(link.getUser() != null ? link.getUser().getId() : null)
-                .status(LinkStatusMapper.toDTO(linkStatusRepository.findById(link.getId()).get()))
+                .status(linkStatusMapper.toDTO(linkStatusRepository.findById(link.getId()).get()))
                 .build();
     }
 

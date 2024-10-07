@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LinkStatusMapper {
 
-    public static LinkStatusDTO toDTO(LinkStatus linkStatus) {
+    public LinkStatusDTO toDTO(LinkStatus linkStatus) {
         if (linkStatus == null) {
             return null;
         }
@@ -18,7 +18,7 @@ public class LinkStatusMapper {
                 .build();
     }
     
-    public static LinkStatus toEntity(LinkStatusDTO dto) {
+    public LinkStatus toEntity(LinkStatusDTO dto) {
         if (dto == null) {
             return null;
         }

@@ -1,5 +1,7 @@
 package dev.shortlink.link;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 import java.security.SecureRandom;
@@ -54,6 +56,34 @@ public class LinkService {
         link.setShortUrl(shortUrl != null ? shortUrl : randomShortUrl);
         link.setExpirationDate(null);
         link.setUser(user);
+        Link savedLink = linkRepository.save(link);
+
+        LinkStatus linkStatus = new LinkStatus();
+        linkStatus.setStatus(Status.ACTIVE);
+        linkStatus.setReason("Create Link");
+        linkStatus.setLink(savedLink);
+        linkStatusRepository.save(linkStatus);
+
+        return linkMapper.toDTO(savedLink);
+    }
+
+    public LinkDTO addLinkFree(String originUrl) {
+        if (linkRepository.existsByOriginUrl(originUrl)) {
+            throw new LinkException("Email already in use");
+        }
+
+        String randomShortUrl = new SecureRandom().ints(5, 0, 62)
+                .mapToObj(i -> "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".charAt(i) + "")
+                .collect(Collectors.joining());
+
+        Link link = new Link();
+        link.setOriginUrl(originUrl);
+        link.setShortUrl(randomShortUrl);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH, 30);
+        link.setExpirationDate(calendar.getTime());
+        link.setUser(null);
         Link savedLink = linkRepository.save(link);
 
         LinkStatus linkStatus = new LinkStatus();

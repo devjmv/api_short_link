@@ -31,7 +31,7 @@ public class LinkController {
 
     @GetMapping
     public ResponseEntity<Page<LinkDTO>> getAllLinks(Principal connectedUser,
-            @PageableDefault(size = 8, sort = { "createdAt" }) Pageable pageable) {
+            @PageableDefault(size = 8, sort = { "id" }) Pageable pageable) {
         User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         Page<LinkDTO> linkDTO = linkService.findAllLinksByUser(user, pageable);
         return ResponseEntity.ok(linkDTO);
@@ -39,10 +39,16 @@ public class LinkController {
 
     @PostMapping
     public ResponseEntity<LinkDTO> addLink(Principal connectedUser,
-            @Valid @RequestHeader(required = false) String originUrl,
+            @Valid @RequestHeader(required = true) String originUrl,
             @RequestHeader(required = false) String shortUrl) {
         User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         LinkDTO addLink = linkService.addLink(user, originUrl, shortUrl);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addLink);
+    }
+
+    @PostMapping("/free")
+    public ResponseEntity<LinkDTO> addLinkFree(@Valid @RequestHeader(required = true) String originUrl) {
+        LinkDTO addLink = linkService.addLinkFree(originUrl);
         return ResponseEntity.status(HttpStatus.CREATED).body(addLink);
     }
 

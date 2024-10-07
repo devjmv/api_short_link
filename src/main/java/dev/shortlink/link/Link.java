@@ -29,8 +29,9 @@ public class Link {
     @Column(name = "short_url", nullable = false)
     private String shortUrl;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "expiration_date")
-    private String expirationDate;
+    private Date expirationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
