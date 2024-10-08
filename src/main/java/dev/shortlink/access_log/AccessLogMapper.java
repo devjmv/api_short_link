@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class AccessLogMapper {
 
     // Method to convert AccessLog to AccessLogDTO
-    public static AccessLogDTO toDTO(AccessLog accessLog) {
+    public AccessLogDTO toDTO(AccessLog accessLog) {
         if (accessLog == null) {
             return null;
         }
@@ -21,7 +21,7 @@ public class AccessLogMapper {
                 .build();
     }
 
-    public static AccessLog toEntity(AccessLogDTO dto) {
+    public AccessLog toEntity(AccessLogDTO dto) {
         if (dto == null) {
             return null;
         }
