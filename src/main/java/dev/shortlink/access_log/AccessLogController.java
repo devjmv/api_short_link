@@ -35,12 +35,11 @@ public class AccessLogController {
         if (linkOptional.isPresent()) {
             Link link = linkOptional.get();
             if (link.getLinkStatus().getStatus() != Status.ACTIVE) {
-                // response.sendError(HttpStatus.NOT_FOUND.value(), "Link is inactive");
                 response.sendRedirect("http://localhost:8080/");
             }
             accessLogService.addAccessLog(link, request, response);
 
-            response.sendRedirect("http://localhost:8080/");
+            response.sendRedirect(link.getOriginUrl());
         } else {
             response.sendError(HttpStatus.NOT_FOUND.value(), "Link not found");
         }
