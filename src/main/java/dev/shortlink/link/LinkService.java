@@ -72,7 +72,7 @@ public class LinkService {
             throw new LinkException("Email already in use");
         }
 
-        String randomShortUrl = new SecureRandom().ints(5, 0, 62)
+        String randomShortUrl = new SecureRandom().ints(5, 0, 256)
                 .mapToObj(i -> "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".charAt(i) + "")
                 .collect(Collectors.joining());
 
